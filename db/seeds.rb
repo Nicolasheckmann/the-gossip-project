@@ -13,13 +13,13 @@ end
 
 User.destroy_all
 10.times do |i|
-  User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.paragraph(sentence_count: 4), email: Faker::Internet.safe_email, age: rand(18..69), city: City.all.sample)
+  User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::TvShows::GameOfThrones.quote, email: Faker::Internet.safe_email, age: rand(18..69), city: City.all.sample)
   puts "#{i+1} users created"
 end
 
 Gossip.destroy_all
 20.times do |i|
-  Gossip.create!(title: Faker::ChuckNorris.fact, content: Faker::GreekPhilosophers.quote, user: User.all.sample)
+  Gossip.create!(title: Faker::Commerce.product_name, content: Faker::TvShows::SouthPark.quote , user: User.all.sample)
   puts "#{i+1} gossips created"
 end
 

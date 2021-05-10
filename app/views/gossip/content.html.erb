@@ -1,13 +1,8 @@
-<h1>PAGE DU GOSSIP </h1>
+<div class="container-xxl p-0 mt-5">
+  <h1 class="text-center" style="padding-top: 4rem;">Gossip numéro <%= @gossip.id %></h1>
 
-<p>Auteur : </p>
-<%= link_to "#{@gossip.user.first_name}", user_path(@gossip.user.id) %>
-
-
-
-<p>Le titre du Gossip : </p>
-<p><%= @gossip.title %></p>
-<p>Le contenu du Gossip : </p>
-<p><%= @gossip.content %></p>
-<p>Date de création :</p>
-<p><%= @gossip.created_at %></p>
+  <p>Auteur : <%= link_to "#{@gossip.user.first_name}", user_path(@gossip.user.id) %></p>
+  <p><span style="font-weight: bold">Titre :</span> <%= @gossip.title %></p>
+  <p><span style="font-weight: bold">Gossip :</span> <%= @gossip.content %></p>
+  <p><%= @gossip.created_at.strftime("Posté le %d/%m/%Y à %H:%M") %></p>
+</div>
