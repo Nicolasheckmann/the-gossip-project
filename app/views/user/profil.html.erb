@@ -1,0 +1,14 @@
+<h1>Bonjour <%= @user.first_name %></h1>
+<p>Profil de <%= @user.first_name%> <%= @user.last_name%> :</p>
+<p><%= @user.description%></p>
+<p>Email : <%= @user.email%></p>
+<p>Age : <%= @user.age%></p>
+<p>Ville : <%= @user.city.name%></p><br><br>
+
+<p>Liste des Gossips :</p><br>
+<% @user.gossips.each_with_index do |gossip, i| %>
+  <p>
+    <%= gossip.title %><br/>
+    <%= link_to "Accéder au Gossip", gossip_path(gossip.id) %>
+  </p>
+<% end %>
