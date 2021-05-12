@@ -17,5 +17,5 @@ class User < ApplicationRecord
   has_many :gossips
   has_many :sent_private_messages, foreign_key: "sender_id", class_name: "PrivateMessage"
   has_many :received_private_messages, foreign_key: "recipient_id", class_name: "PrivateMessageRecipient"
-
+  has_many :comments
 end

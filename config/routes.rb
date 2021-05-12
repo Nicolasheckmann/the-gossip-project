@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'gossips#index'
 
-  resources :gossips
+  resources :gossips do
+    resources :comments
+  end
   resources :users
   resources :cities
 

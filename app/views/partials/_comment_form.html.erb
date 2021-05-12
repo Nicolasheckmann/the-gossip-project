@@ -1,0 +1,13 @@
+<div class="container-xxl p-0 mt-5">
+
+  <%= form_tag url_for(action: 'create'), method: "post" do %>
+
+    <%= label_tag 'Commentaire' %>
+    <%= text_area_tag 'content' %>
+    <br /> <br />
+
+    <%= submit_tag "Commenter" %>
+
+  <% end %>
+
+</div>
