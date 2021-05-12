@@ -1,11 +1,12 @@
 <div class="container-xxl p-0 mt-5">
   <h1 class="text-center" style="padding-top: 4rem;">Bienvenue dans Gossips</h1>
 
-  <% if params[:title] %>
+  <% flash.each do |type, msg| %>
     <div class="alert alert-success" role="alert">
-      <p>Le Gossip <%= params[:title] %> a bien été créé</p>
+      <%= msg %>
     </div>
   <% end %>
+
   <%= link_to "Créer un nouveau Gossip", new_gossip_path %>
   <h3 class="py-5">Liste des Gossips</h3>
   <div class="row g-0">

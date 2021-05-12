@@ -1,13 +1,13 @@
 <div class="container-xxl p-0 mt-5">
   <h1 class="text-center" style="padding-top: 4rem;">Création du nouveau Gossip</h1>
 
-  <% if @gossip && @gossip.errors.any? %>
+  <% flash.each do |type, msg| %>
     <div class="alert alert-danger" role="alert">
-      <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+      <%= msg %>
       <ul>
-        <% @gossip.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+      <% @gossip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
       </ul>
     </div>
   <% end %>
