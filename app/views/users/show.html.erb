@@ -5,7 +5,7 @@
   <p><%= @user.description%> <br><br>
   Email : <%= @user.email%> <br>
   Age : <%= @user.age%> <br>
-  Ville : <%= @user.city.name%></p><br>
+  Ville : <%= link_to "#{@user.city.name}", city_path(@user.city.id) %></p><br>
 
   <h4>Gossips de  <%= @user.first_name %> :</h4><br>
   <div class="row g-0">

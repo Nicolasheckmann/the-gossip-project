@@ -2,6 +2,7 @@
   <h1 class="text-center" style="padding-top: 4rem;">Gossip numéro <%= @gossip.id %></h1>
 
   <p>Auteur : <%= link_to "#{@gossip.user.first_name}", user_path(@gossip.user.id) %></p>
+  <p>Ville : <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id) %></p>
   <p><span style="font-weight: bold">Titre :</span> <%= @gossip.title %></p>
   <p><span style="font-weight: bold">Gossip :</span> <%= @gossip.content %></p>
   <p><%= @gossip.created_at.strftime("Posté le %d/%m/%Y à %H:%M") %></p>
