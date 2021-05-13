@@ -1,4 +1,4 @@
-<div class="container-xxl p-0 mt-5">
+<div class="container-xxl p-0 mt-5 mx-5">
   <h1 class="text-center" style="padding-top: 4rem;">Gossip numéro <%= @gossip.id %></h1>
 
   
@@ -14,19 +14,23 @@
   <p><span style="font-weight: bold">Titre :</span> <%= @gossip.title %></p>
   <p><span style="font-weight: bold">Gossip :</span> <%= @gossip.content %></p>
   <p><%= @gossip.created_at.strftime("Posté le %d/%m/%Y à %H:%M") %></p>
+
   <% if current_user == @gossip.user %>
     <p><%= link_to "Modifier le Gossip", edit_gossip_path(@gossip.id) %></p>
     <%= link_to "Détruire le Gossip", gossip_path(@gossip), method: "delete", data: {confirm: "Est tu sûr de vouloir détruire le Gossip?"} %>
   <% end %>
+
   <span><%= pluralize(@gossip.comments.count, "commentaire") %></span>
   <span><%= pluralize(@gossip.likes.count, "like") %></span>
-  <%= link_to "Like", gossip_likes_path(@gossip.id), method: 'post' %>
-  <% if @gossip.likes.any? %>
-    <%= link_to "Dislike", gossip_like_path(@gossip.id, @gossip.likes.last.id), method: 'delete' %>
+  
+  <% if !logged_out? && current_user.likes.where(gossip_id: @gossip.id).any? %>
+    <%= button_to "Dislike", gossip_like_path(@gossip.id, current_user.likes.where(gossip_id: @gossip.id).last.id), method: 'delete' %>
+  <% else %>
+    <%= button_to "Like", gossip_likes_path(@gossip.id), method: 'post' %>
   <% end %>
 </div>
 
-<div class="container-xxl p-0 mt-5">
+<div class="container-xxl p-0 mt-5 mx-5">
   <h1 class="text-center" style="padding-top: 4rem;">Commentaires du Gossip</h1>
   <div class="row g-0">
     <% @gossip.comments.reverse_each do |comment| %>

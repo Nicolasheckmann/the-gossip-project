@@ -1,4 +1,4 @@
-<div class="container-xxl p-0 mt-5">
+<div class="container-xl p-0 mt-5 mx-5">
   <h1 class="text-center" style="padding-top: 4rem;">Bienvenue dans Gossips</h1>
 
   <% flash.each do |type, msg| %>
@@ -23,9 +23,10 @@
               <p><%= gossip.content %></p>
               <footer class="blockquote-footer">
                 Un <%= link_to "Gossip", gossip_path(gossip.id) %> de <%= link_to "#{gossip.user.first_name}", user_path(gossip.user.id) %>
-                <%= link_to "Like", gossip_likes_path(gossip.id), method: 'post' %>
-                <% if current_user.likes.where(gossip_id: gossip.id).any? %>
-                  <%= link_to "Dislike", gossip_like_path(gossip.id, current_user.likes.where(gossip_id: gossip.id).last.id), method: 'delete' %>
+                <% if !logged_out? && current_user.likes.where(gossip_id: gossip.id).any? %>
+                  <%= button_to "Dislike", gossip_like_path(gossip.id, current_user.likes.where(gossip_id: gossip.id).last.id), method: 'delete' %>
+                <% else %>
+                  <%= button_to "Like", gossip_likes_path(gossip.id), method: 'post' %>
                 <% end %>
               </footer>
             </blockquote>

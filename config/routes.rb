@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   root 'gossips#index'
 
   resources :gossips do
-    resources :comments
+    resources :comments, excepts: [:show, :index]
     resources :likes, only: [:create, :destroy]
   end
-  resources :users
-  resources :cities
+  resources :users, only: [:show, :new, :create]
+  resources :cities, only: [:show]
   resources :sessions, only: [:new, :create, :destroy]
   
 
