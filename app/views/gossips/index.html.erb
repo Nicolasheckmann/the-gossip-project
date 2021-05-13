@@ -14,12 +14,20 @@
       <div class="col-sm-4 p-1">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <%= gossip.title %> <span><%= pluralize(gossip.comments.count, "commentaire") %></span>
+            <%= gossip.title %>
+            <span><%= pluralize(gossip.comments.count, "commentaire") %></span>
+            <span><%= pluralize(gossip.likes.count, "like") %></span>
           </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p><%= gossip.content %></p>
-              <footer class="blockquote-footer">Un <%= link_to "Gossip", gossip_path(gossip.id) %> de <%= link_to "#{gossip.user.first_name}", user_path(gossip.user.id) %></footer>
+              <footer class="blockquote-footer">
+                Un <%= link_to "Gossip", gossip_path(gossip.id) %> de <%= link_to "#{gossip.user.first_name}", user_path(gossip.user.id) %>
+                <%= link_to "Like", gossip_likes_path(gossip.id), method: 'post' %>
+                <% if gossip.likes.any? %>
+                  <%= link_to "Dislike", gossip_like_path(gossip.id, gossip.likes.last.id), method: 'delete' %>
+                <% end %>
+              </footer>
             </blockquote>
           </div>
         </div>

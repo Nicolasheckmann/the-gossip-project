@@ -18,6 +18,12 @@
     <p><%= link_to "Modifier le Gossip", edit_gossip_path(@gossip.id) %></p>
     <%= link_to "Détruire le Gossip", gossip_path(@gossip), method: "delete", data: {confirm: "Est tu sûr de vouloir détruire le Gossip?"} %>
   <% end %>
+  <span><%= pluralize(@gossip.comments.count, "commentaire") %></span>
+  <span><%= pluralize(@gossip.likes.count, "like") %></span>
+  <%= link_to "Like", gossip_likes_path(@gossip.id), method: 'post' %>
+  <% if @gossip.likes.any? %>
+    <%= link_to "Dislike", gossip_like_path(@gossip.id, @gossip.likes.last.id), method: 'delete' %>
+  <% end %>
 </div>
 
 <div class="container-xxl p-0 mt-5">
