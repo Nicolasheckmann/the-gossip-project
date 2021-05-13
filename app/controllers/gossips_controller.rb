@@ -31,7 +31,7 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     if @gossip.update(title: params[:gossip][:title], content: params[:gossip][:content] )
       flash[:notice] = 'Gossip modifié'
-      redirect_to @gossip
+      redirect_to gossip_path(@gossip.id)
     else
       flash.now[:notice] = "Nous n'avons pas réussi à modifier le Gossip pour la (ou les) raison(s) suivante(s) :"
       render :edit

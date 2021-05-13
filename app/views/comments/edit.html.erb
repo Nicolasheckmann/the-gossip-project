@@ -13,16 +13,13 @@
       </div>
   <% end %>
 
-  <%= form_for url_for(action: 'update') do |f| %>
+  <%= form_with(model: [@gossip, @comment], local: true) do |form| %>
 
-    <div class="form-group">
-      <label>Commentaire :</label>
-      <%= f.text_area :content, class: 'form-control' %>
-    </div>
+      <%= form.label :content, "Commentaire :" %>
+      <%= form.text_area :content %>
 
-    <div class="form-group">
-      <button type="submit">Modifier le Commentaire</button>
-    </div>
+      <%= form.submit "Modifier" %>
 
   <% end %>
+  <%= button_to "Supprimer le commentaire", [@gossip, @comment], :method => :delete %>
 </div>
