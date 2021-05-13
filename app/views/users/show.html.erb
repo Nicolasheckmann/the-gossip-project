@@ -5,11 +5,11 @@
   <p><%= @user.description%> <br><br>
   Email : <%= @user.email%> <br>
   Age : <%= @user.age%> <br>
-  Ville : <%= @user.city.name%></p><br>
+  Ville : <%= link_to "#{@user.city.name}", city_path(@user.city.id) %></p><br>
 
   <h4>Gossips de  <%= @user.first_name %> :</h4><br>
   <div class="row g-0">
-      <% @user.gossips.each_with_index do |gossip, i| %>
+      <% @user.gossips.reverse_each do |gossip| %>
         <div class="col-sm-12 p-1">
           <div class="card">
             <div class="card-header">

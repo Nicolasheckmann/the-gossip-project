@@ -1,0 +1,47 @@
+<div class="container-xxl p-0 mt-5">
+  <h1 class="text-center" style="padding-top: 4rem;">Gossip numéro <%= @gossip.id %></h1>
+
+  
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-success" role="alert">
+        <%= msg %>
+      </div>
+    <% end %>
+  
+
+  <p>Auteur : <%= link_to "#{@gossip.user.first_name}", user_path(@gossip.user.id) %></p>
+  <p>Ville : <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id) %></p>
+  <p><span style="font-weight: bold">Titre :</span> <%= @gossip.title %></p>
+  <p><span style="font-weight: bold">Gossip :</span> <%= @gossip.content %></p>
+  <p><%= @gossip.created_at.strftime("Posté le %d/%m/%Y à %H:%M") %></p>
+  <p><%= link_to "Modifier le Gossip", edit_gossip_path(@gossip.id) %></p>
+  <%= link_to "Détruire le Gossip", gossip_path(@gossip), method: "delete", data: {confirm: "Est tu sûr de vouloir détruire le Gossip?"} %>
+</div>
+
+<div class="container-xxl p-0 mt-5">
+  <h1 class="text-center" style="padding-top: 4rem;">Commentaires du Gossip</h1>
+  <div class="row g-0">
+    <% @gossip.comments.reverse_each do |comment| %>
+      <div class="col-sm-4 p-1">
+        <div class="card">
+          <div class="card-header">
+            <%=comment.updated_at.strftime("Posté le %d/%m/%Y à %H:%M")%>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p><%= comment.content %></p>
+              <br>
+              <footer class="blockquote-footer">
+                <%= link_to "#{comment.user.first_name}", user_path(comment.user.id) %>
+                <br>
+                <%= link_to "Modifier le commentaire", edit_gossip_comment_path(@gossip.id, comment.id) %>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <div>
+  <%= link_to "Commenter le Gossip", new_gossip_comment_path(@gossip.id) %>
+</div>
+

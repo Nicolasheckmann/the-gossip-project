@@ -1,0 +1,28 @@
+<div class="container-xxl p-0 mt-5">
+  <h1 class="text-center" style="padding-top: 4rem;">Modification du Commentaire</h1>
+
+
+  <% flash.each do |type, msg| %>
+      <div class="alert alert-danger" role="alert">
+        <%= msg %>
+        <ul>
+        <% @comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for url_for(action: 'update') do |f| %>
+
+    <div class="form-group">
+      <label>Commentaire :</label>
+      <%= f.text_area :content, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Modifier le Commentaire</button>
+    </div>
+
+  <% end %>
+</div>

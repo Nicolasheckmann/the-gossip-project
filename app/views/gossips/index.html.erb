@@ -1,9 +1,16 @@
 <div class="container-xxl p-0 mt-5">
   <h1 class="text-center" style="padding-top: 4rem;">Bienvenue dans Gossips</h1>
 
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-success" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
+
+  <%= link_to "Créer un nouveau Gossip", new_gossip_path %>
   <h3 class="py-5">Liste des Gossips</h3>
   <div class="row g-0">
-    <% @gossips.each_with_index do |gossip, i| %>
+    <% @gossips.reverse_each do |gossip| %>
       <div class="col-sm-4 p-1">
         <div class="card">
           <div class="card-header">
@@ -20,4 +27,3 @@
     <% end %>
   <div>
 </div>
-
