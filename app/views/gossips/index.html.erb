@@ -24,8 +24,8 @@
               <footer class="blockquote-footer">
                 Un <%= link_to "Gossip", gossip_path(gossip.id) %> de <%= link_to "#{gossip.user.first_name}", user_path(gossip.user.id) %>
                 <%= link_to "Like", gossip_likes_path(gossip.id), method: 'post' %>
-                <% if gossip.likes.any? %>
-                  <%= link_to "Dislike", gossip_like_path(gossip.id, gossip.likes.last.id), method: 'delete' %>
+                <% if current_user.likes.where(gossip_id: gossip.id).any? %>
+                  <%= link_to "Dislike", gossip_like_path(gossip.id, current_user.likes.where(gossip_id: gossip.id).last.id), method: 'delete' %>
                 <% end %>
               </footer>
             </blockquote>
