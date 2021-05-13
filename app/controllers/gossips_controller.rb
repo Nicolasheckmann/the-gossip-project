@@ -1,5 +1,5 @@
-require 'pry'
 class GossipsController < ApplicationController
+  before_action :authenticate_user, except: [:index]
 
   def index
     @gossips = Gossip.all
@@ -13,7 +13,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user: User.where(email: "anonymous@anonymous.com").first)
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
     if @gossip.save
       flash[:notice] = 'Nouveau Gossip créé'
       redirect_to gossips_path
@@ -24,12 +24,14 @@ class GossipsController < ApplicationController
   end
 
   def edit
-    @gossip = Gossip.find(params[:id])
+    @gossip = Gossip.find(params[:id]) 
+    unless @gossip.user != current_user
+    end
   end
 
   def update
     @gossip = Gossip.find(params[:id])
-    if @gossip.update(title: params[:gossip][:title], content: params[:gossip][:content] )
+    if @gossip.update(title: params[:gossip][:title], content: params[:gossip][:content] ) &&  @gossip.user == current_user
       flash[:notice] = 'Gossip modifié'
       redirect_to gossip_path(@gossip.id)
     else
@@ -40,7 +42,7 @@ class GossipsController < ApplicationController
 
   def destroy
     @gossip = Gossip.find(params[:id])
-    @gossip.destroy
+    @gossip.destroy unless @gossip.user != current_user
     flash[:notice] = 'Gossip détruit'
     redirect_to gossips_path
   end

@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user
 
   def new
     @gossip = Gossip.find(params[:gossip_id])
@@ -7,7 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @gossip = Gossip.find(params[:gossip_id])
-    @comment = Comment.new(content: params[:comment][:content], gossip: @gossip, user: User.where(email: "anonymous@anonymous.com").first)
+    @comment = Comment.new(content: params[:comment][:content], gossip: @gossip, user: current_user)
     if @comment.save
       flash[:success] = 'Nouveau Commentaire créé'
       redirect_to @gossip

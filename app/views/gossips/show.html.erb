@@ -14,8 +14,10 @@
   <p><span style="font-weight: bold">Titre :</span> <%= @gossip.title %></p>
   <p><span style="font-weight: bold">Gossip :</span> <%= @gossip.content %></p>
   <p><%= @gossip.created_at.strftime("Posté le %d/%m/%Y à %H:%M") %></p>
-  <p><%= link_to "Modifier le Gossip", edit_gossip_path(@gossip.id) %></p>
-  <%= link_to "Détruire le Gossip", gossip_path(@gossip), method: "delete", data: {confirm: "Est tu sûr de vouloir détruire le Gossip?"} %>
+  <% if current_user == @gossip.user %>
+    <p><%= link_to "Modifier le Gossip", edit_gossip_path(@gossip.id) %></p>
+    <%= link_to "Détruire le Gossip", gossip_path(@gossip), method: "delete", data: {confirm: "Est tu sûr de vouloir détruire le Gossip?"} %>
+  <% end %>
 </div>
 
 <div class="container-xxl p-0 mt-5">
@@ -34,7 +36,9 @@
               <footer class="blockquote-footer">
                 <%= link_to "#{comment.user.first_name}", user_path(comment.user.id) %>
                 <br>
-                <%= link_to "Modifier le commentaire", edit_gossip_comment_path(@gossip.id, comment.id) %>
+                <% if current_user == comment.user %>
+                  <%= link_to "Modifier le commentaire", edit_gossip_comment_path(@gossip.id, comment.id) %>
+                <% end %>
               </footer>
             </blockquote>
           </div>

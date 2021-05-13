@@ -12,10 +12,14 @@ class User < ApplicationRecord
   presence: true,
   uniqueness: true,
   format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Entre un email valide s'il te plait! :)"} 
-
+  validates :password,
+  presence: true,
+  length: { minimum: 6, message: "Le mot de passe doit être d'au moins 6 caractères"}
+  
   belongs_to :city
   has_many :gossips
   has_many :sent_private_messages, foreign_key: "sender_id", class_name: "PrivateMessage"
   has_many :received_private_messages, foreign_key: "recipient_id", class_name: "PrivateMessageRecipient"
   has_many :comments
+  has_secure_password
 end
