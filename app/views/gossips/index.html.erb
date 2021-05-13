@@ -14,7 +14,7 @@
       <div class="col-sm-4 p-1">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <%= gossip.title %> <span><%= gossip.comments.length%> commentaires</span>
+            <%= gossip.title %> <span><%= pluralize(gossip.comments.count, "commentaire") %></span>
           </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
