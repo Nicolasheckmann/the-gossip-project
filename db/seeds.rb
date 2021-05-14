@@ -7,19 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 City.destroy_all
 10.times do |i|
-  City.create!(name: Faker::Nation.capital_city, zip_code: Faker::Address.zip_code)
+  City.create!(name: Faker::Nation.capital_city, zip_code: Faker::Number.decimal_part(digits: 5))
   puts "city number #{i+1}"
 end
 
 User.destroy_all
 10.times do |i|
-  User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::TvShows::GameOfThrones.quote, email: Faker::Internet.safe_email, age: rand(18..69), city: City.all.sample)
+  User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::TvShows::GameOfThrones.quote, email: Faker::Internet.safe_email, age: rand(18..69), city: City.all.sample, password: Faker::Crypto.sha1)
   puts "#{i+1} users created"
 end
 
 Gossip.destroy_all
 20.times do |i|
-  Gossip.create!(title: Faker::Commerce.product_name, content: Faker::TvShows::SouthPark.quote , user: User.all.sample)
+  Gossip.create!(title: Faker::Games::Pokemon.name , content: Faker::TvShows::SouthPark.quote , user: User.all.sample)
   puts "#{i+1} gossips created"
 end
 

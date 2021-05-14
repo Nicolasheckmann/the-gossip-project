@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :last_name,
     presence: true
   validates :description,
-  length: { minimum: 3 , message: "Ta description de profil doit faire au moins 10 caractères"}
+  length: { minimum: 3 , message: "Ta description de profil doit faire au moins 3 caractères"}
   validates :age,
     presence: true,
     numericality: { greater_than: 0, message: "Ton age doit être supérieur à 0"}
