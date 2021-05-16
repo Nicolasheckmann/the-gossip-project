@@ -1,12 +1,15 @@
 class SessionsController < ApplicationController
   def new
-
+    puts params
   end
 
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       log_in(user)
+      if params[:remember_me] == "1"
+        remember(user)
+      end
       flash[:notice] = 'Connexion réussie !'
       redirect_to '/'
     else
@@ -16,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
+    log_out(current_user)
     flash[:success] = 'Déconnecté'
     redirect_to '/'
   end

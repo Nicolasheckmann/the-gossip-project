@@ -38,6 +38,9 @@
       <%= form.label :password_confirmation, "Mot de passe :" %>
       <%= form.password_field :password_confirmation %>
 
+      <%= form.label :remember_me, "Se souvenir de moi" %>
+      <%= form.check_box :remember_me %>
+
       <%= form.submit "S'inscrire" %>
 
   <% end %>

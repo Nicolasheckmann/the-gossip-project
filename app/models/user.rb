@@ -12,9 +12,8 @@ class User < ApplicationRecord
   presence: true,
   uniqueness: true,
   format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Entre un email valide s'il te plait! :)"} 
-  validates :password,
-  presence: true,
-  length: { minimum: 6, message: "Le mot de passe doit être d'au moins 6 caractères"}
+  validates :password_digest,
+  presence: true
 
   belongs_to :city
   has_many :gossips
@@ -23,4 +22,9 @@ class User < ApplicationRecord
   has_many :comments
   has_many :likes
   has_secure_password
+
+  def remember(remember_token)
+    remember_digest = BCrypt::Password.create(remember_token)
+    self.update(remember_digest: remember_digest)
+  end
 end

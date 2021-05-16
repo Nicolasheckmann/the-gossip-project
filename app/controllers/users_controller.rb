@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include SessionHelper
   def show
     @user = User.find(params[:id])
   end
@@ -14,6 +13,9 @@ class UsersController < ApplicationController
     @cities = City.all.map { |city| [city.name, city.id] }
     if @user.save
       log_in(@user)
+      if params[:remember_me] == "1"
+        remember(user)
+      end
       flash[:notice] = 'Bienvenue chez Gossip !'
       redirect_to '/'
     else
